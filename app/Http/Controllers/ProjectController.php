@@ -12,16 +12,36 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with('categories')->get();
-        return view('project', compact('projects'));
+        $projects = Project::get();
+        return view('projects.index', compact('projects'));
     }
+
+    // ProjectController.php
+
+public function showCategory($projectId, $categoryId)
+{
+    // Temukan project berdasarkan ID
+    $projects = Project::findOrFail($projectId);
+    
+    // Temukan kategori berdasarkan ID di dalam project tersebut
+    $category = $projects->categories()->findOrFail($categoryId);
+    
+    // Pastikan nama view sesuai dengan nama kategori, misalnya 'inproject.lan'
+    $viewName = 'inproject.' . strtolower(str_replace(' ', '', $category->name)); // Menghapus spasi dan lowercase untuk mencegah error
+
+    // Return ke view yang sesuai
+    return view($viewName, compact('projects', 'category'));
+}
+
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('createproject');
+        return view('projects.create');
     }
 
     /**
@@ -29,7 +49,10 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $projects = new Project();
+        $projects->name = $request->name;
+        $projects->save();
+        return redirect()->route('projects.index', compact('projects'));
     }
 
     /**
@@ -37,7 +60,8 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $projects = Project::with('categories.subcategories')->findOrFail($id);
+        return view('projects.show', compact('projects'));
     }
 
     /**
@@ -45,7 +69,7 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('projects.edit');
     }
 
     /**
@@ -53,7 +77,10 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $projects = Project::find($id);
+        $projects->name = $request->name;
+        $projects->save();
+        return redirect()->route('projects.index', compact('projects'));
     }
 
     /**
@@ -61,6 +88,8 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $projects = Project::find($id);
+        $projects->delete();
+        return redirect()->route('projects.index', compact('projects'));
     }
 }

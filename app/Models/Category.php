@@ -7,5 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name', 'project_id'];
+
+    // Relasi Category dimiliki oleh Project
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
+
 }

@@ -11,6 +11,7 @@ class Project extends Model
     use HasFactory;
 
     protected $table = 'projects';
+    protected $fillable = ['name'];
 
     public function categories()
     {
