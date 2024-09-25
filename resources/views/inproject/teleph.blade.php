@@ -8,5 +8,8 @@
         <p>Data dari kategori {{ $category->name }} terkait proyek {{ $projects->name }}.</p>
         <p>Data dari kategori {{ $category->name }} terkait proyek {{ $projects->name }}.</p>
         <p>Data dari kategori {{ $category->name }} terkait proyek {{ $projects->name }}.</p>
+
+
+        tampilan teleph
     </div>
 @endsection

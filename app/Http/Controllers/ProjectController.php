@@ -22,19 +22,13 @@ public function showCategory($projectId, $categoryId)
 {
     // Temukan project berdasarkan ID
     $projects = Project::findOrFail($projectId);
-    
     // Temukan kategori berdasarkan ID di dalam project tersebut
-    $category = $projects->categories()->findOrFail($categoryId);
-    
-    // Pastikan nama view sesuai dengan nama kategori, misalnya 'inproject.lan'
-    $viewName = 'inproject.' . strtolower(str_replace(' ', '', $category->name)); // Menghapus spasi dan lowercase untuk mencegah error
-
+    $category = $projects->category()->findOrFail($categoryId);
+              // Pastikan nama view sesuai dengan nama kategori, misalnya 'inproject.lan.index'
+       $viewName = 'inproject.' . strtolower(str_replace(' ', '', $category->name)) . '.index'; // Menghapus spasi dan lowercase untuk mencegah error
     // Return ke view yang sesuai
     return view($viewName, compact('projects', 'category'));
 }
-
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -43,7 +37,6 @@ public function showCategory($projectId, $categoryId)
     {
         return view('projects.create');
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -54,13 +47,12 @@ public function showCategory($projectId, $categoryId)
         $projects->save();
         return redirect()->route('projects.index', compact('projects'));
     }
-
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $projects = Project::with('categories.subcategories')->findOrFail($id);
+        $projects = Project::with('category')->findOrFail($id);
         return view('projects.show', compact('projects'));
     }
 

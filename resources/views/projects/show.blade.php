@@ -7,7 +7,7 @@
                 <h1 class="text-lg uppercase text-white font-bold">{{ $projects->name }}</h1>
             </div>
             <ul class="flex flex-col py-4">
-                @foreach ($projects->categories as $category)
+                @foreach ($projects->category as $category)
                     <li class="bg-gray-300 mb-3">
                         <a href="{{ route('projects.category', ['project' => $projects->id, 'category' => $category->id]) }}" class="flex flex-row items-center justify-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-600 hover:text-gray-800">
                             <span class="text-lg font-medium">{{ $category->name }}</span>

@@ -5,14 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
-class SubCategoryController extends Controller
+class LanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('inproject.lan.index');
     }
 
     /**
@@ -30,7 +27,7 @@ class SubCategoryController extends Controller
     public function store(Request $request, $project)
     {
         $projects = Project::findOrFail($project);
-        $projects->categories()->create($request->all());
+        $projects->category()->create($request->all());
         return redirect()->route('projects.show', $projects->id);
     }
 

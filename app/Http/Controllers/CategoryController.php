@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function store(Request $request, $project)
     {
         $projects = Project::findOrFail($project);
-        $projects->categories()->create($request->all());
+        $projects->category()->create($request->all());
         return redirect()->route('projects.show', $projects->id);
     }
 

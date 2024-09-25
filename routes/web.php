@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LanController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\inprojectController;
@@ -26,5 +27,8 @@ Route::post('projects/{project}/categories', [CategoryController::class, 'store'
 
 // web.php
 Route::get('/projects/{project}/category/{category}', [ProjectController::class, 'showCategory'])->name('projects.category');
+
+Route::get('/projects/{project}/lan/create', [LanController::class, 'create'])->name('lan.create');
+Route::get('/projects/{project}/lan', [LanController::class, 'index'])->name('lan.index');
 
 

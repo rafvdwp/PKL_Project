@@ -13,7 +13,7 @@ class Project extends Model
     protected $table = 'projects';
     protected $fillable = ['name'];
 
-    public function categories()
+    public function category()
     {
         return $this->hasMany(Category::class);
     }

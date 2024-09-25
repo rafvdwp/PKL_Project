@@ -15,9 +15,9 @@ class Category extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function subcategories()
+    public function lan()
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->hasMany(Lan::class);
     }
 
 }
